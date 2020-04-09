@@ -1,1 +1,1 @@
-consolo.log('start');
+console.log('start');
