@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const serverConfig = {
    target: 'node',
@@ -50,7 +49,5 @@ const clientConfig = {
       ignored: /node_modules/
    },
 };
-
-
 
 module.exports = [clientConfig, serverConfig];
