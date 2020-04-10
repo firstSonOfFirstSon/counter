@@ -61,9 +61,23 @@ const clientConfig = {
                   presets: ['@babel/preset-env', "@babel/preset-react"]//"@babel/preset-stage-0"
                }
             }
+         }, {
+            test: /\.scss$/,
+            use: [MiniCssExtractPlugin.loader, 'css-loader', {
+               loader: "postcss-loader",
+               options: {
+                  plugins: () => [require("autoprefixer")]
+               }
+            }, 'sass-loader']
          }
       ]
    },
+   plugins: [
+      new MiniCssExtractPlugin({
+         filename: 'bundle.css',
+         chunkFilename: '[id].css',
+      })
+   ]
 };
 
 module.exports = [clientConfig, serverConfig];

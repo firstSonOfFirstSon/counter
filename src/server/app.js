@@ -21,6 +21,7 @@ const buildHTMLPage = ({html = '', css = ''}) =>
         <head>
             <meta charset="utf-8"/>
             <title>Application counter</title>
+            <link rel="stylesheet" href="./bundle.css">
         </head>
         <body>
             <div id="root">${html}</div>

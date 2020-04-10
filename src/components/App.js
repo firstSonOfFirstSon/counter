@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.scss';
 
 const incIfOdd = (counter, increment) => {
    if (counter % 2 !== 0) {
