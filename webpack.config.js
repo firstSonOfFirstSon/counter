@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const serverConfig = {
@@ -47,6 +48,21 @@ const clientConfig = {
    watch: NODE_ENV === 'development',
    watchOptions: {
       ignored: /node_modules/
+   },
+   devtool: NODE_ENV === 'development' ? 'cheap-inline-module-source-map' : 'none',
+   module: {
+      rules: [
+         {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+               loader: "babel-loader",
+               options: {
+                  presets: ['@babel/preset-env', "@babel/preset-react"]//"@babel/preset-stage-0"
+               }
+            }
+         }
+      ]
    },
 };
 
