@@ -6,6 +6,8 @@ const counter = (state = 0, action = { type: null }) => {
          return state + 1;
       case c.DECREMENT:
          return state - 1;
+      case c.RESET:
+         return 0;
       default:
          return state;
    }

@@ -1,6 +1,7 @@
 const constants = {
    INCREMENT: 'increment',
-   DECREMENT: 'decrement'
+   DECREMENT: 'decrement',
+   RESET: 'reset'
 };
 
 export default constants;

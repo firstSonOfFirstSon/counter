@@ -26,15 +26,27 @@ const serverConfig = {
                   presets: ['@babel/preset-env', "@babel/preset-react"]
                }
             }
+         }, {
+         /*
+         ignore-loade решил проблему с игнором scss в серверной сборке
+         *  */
+            test: /\.scss$/,
+            use: ['ignore-loader']
          }
       ]
    },
    plugins: [
       new webpack.DefinePlugin({
          DIR_STATIC_FILES: JSON.stringify( path.join(__dirname, '/dist/assets') )
-      })
+      }),
+      /*
+       IgnorePlugin предотвращает генерацию модулей для import или require вызовов (на этапе сборки),
+       т. е. в bundle эти модули не попадают. След-но,
+       при запуске серверного bundle, будет ошибка, что модули /\.scss$/ не найдены.
+      */
+     // new webpack.IgnorePlugin({resourceRegExp: /\.scss$/})
    ]
-
+  // externals: /\.scss$/
 };
 const clientConfig = {
    target: 'web',

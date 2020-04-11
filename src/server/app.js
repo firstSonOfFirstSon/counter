@@ -2,7 +2,11 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import fs from 'fs';
+import storeFactory from '../store';
+import initialState from '../../data/initialState.json';
+import App from '../components/App';
 
+const store = storeFactory(true, initialState);
 const fileAssets = express.static( DIR_STATIC_FILES );
 const logger = (req, res, next) => {
    console.log(`${req.method} request for '${req.url}'`);

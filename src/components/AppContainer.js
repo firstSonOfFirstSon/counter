@@ -1,4 +1,4 @@
-import {increment, decrement} from '../utils/actionCreators';
+import {increment, decrement, reset} from '../utils/actionCreators';
 import {connect} from 'react-redux';
 import App from './App';
 
@@ -10,6 +10,9 @@ const AppContainer = connect(
       },
       decrement() {
          dispatch( decrement() )
+      },
+      reset() {
+         dispatch( reset() )
       }
    })
 )(App);

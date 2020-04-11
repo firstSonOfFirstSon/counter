@@ -7,3 +7,7 @@ export const increment = () => ({
 export const decrement = () => ({
    type: c.DECREMENT
 });
+
+export const reset = () => ({
+  type: c.RESET
+})

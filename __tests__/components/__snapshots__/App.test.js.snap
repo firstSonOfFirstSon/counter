@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> ui component Rendering ui Renders Correctly 1`] = `
+<div
+  className="app"
+>
+  Clicked: 
+  0
+   times
+  <button
+    onClick={[Function]}
+  >
+    +
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    -
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    increment if odd
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    increment async
+  </button>
+  <button
+    onClick={[Function]}
+  >
+    reset
+  </button>
+</div>
+`;
