@@ -2,11 +2,15 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import fs from 'fs';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
 import storeFactory from '../store';
 import initialState from '../../data/initialState.json';
-import App from '../components/App';
+import {Provider} from 'react-redux';
+import AppContainer from '../components/AppContainer';
+import App from "../components/App";
 
-const store = storeFactory(true, initialState);
+const serverStore = storeFactory(true, initialState);
 const fileAssets = express.static( DIR_STATIC_FILES );
 const logger = (req, res, next) => {
    console.log(`${req.method} request for '${req.url}'`);
@@ -14,11 +18,19 @@ const logger = (req, res, next) => {
 };
 const compose = (...fns) => arg =>
       fns.reduce( (prevRes, fn) => fn(prevRes), arg);
-const renderComponentToHtml = (url) =>
+const makeClientStoreFrom = (store) => () => ({
+   store: storeFactory(false, store.getState())
+});
+const renderComponentToHTML = ({store}) =>
    ({
-      html: 'there will be a super application'
+      state: store.getState(),
+      html: renderToString(
+         <Provider store={store}>
+            <AppContainer />
+         </Provider>
+      )
    });
-const buildHTMLPage = ({html = '', css = ''}) =>
+const buildHTMLPage = ({html = '', css = '', state}) =>
    `
       <!DOCTYPE html>
       <html>
@@ -29,13 +41,15 @@ const buildHTMLPage = ({html = '', css = ''}) =>
         </head>
         <body>
             <div id="root">${html}</div>
+            <script>window.__INITIAL_STATE__ = ${ JSON.stringify(state) }</script>
             <script src="/bundle.js"></script>
         </body>
       </html>
    `;
 const htmlResponse =
    compose(
-      renderComponentToHtml,
+      makeClientStoreFrom(serverStore),
+      renderComponentToHTML,
       buildHTMLPage
    );
 const respond = ({url}, res) => {

@@ -1,12 +1,12 @@
 import React from 'react';
-import { render } from 'react-dom';
+import { hydrate } from 'react-dom';
 import {Provider} from 'react-redux';
 import App from './components/AppContainer';
 import storeFactory from './store';
 
-const store = storeFactory(false, {counter: 0});
+const store = storeFactory(false, window.__INITIAL_STATE__);
 
-render(
+hydrate(
    <Provider store={store}>
       <App/>
    </Provider>,
