@@ -7,13 +7,24 @@ import { renderToString } from 'react-dom/server';
 import storeFactory from '../store';
 import initialState from '../../data/initialState.json';
 import {Provider} from 'react-redux';
+import api from './counter-api';
 import AppContainer from '../components/AppContainer';
-import App from "../components/App";
 
 const serverStore = storeFactory(true, initialState);
+serverStore.subscribe( () => {
+   fs.writeFile(
+      DIR_INITIAL_STATE,
+      JSON.stringify( serverStore.getState() ),
+      (error) => error ? console.log('Error saving state!', error) : null
+   )
+});
 const fileAssets = express.static( DIR_STATIC_FILES );
 const logger = (req, res, next) => {
    console.log(`${req.method} request for '${req.url}'`);
+   next();
+};
+const addStoreToRequestPipline = (req, res, next) => {
+   req.store = serverStore;
    next();
 };
 const compose = (...fns) => arg =>
@@ -59,4 +70,6 @@ export default express()
    .use( bodyParser.json() )
    .use(logger)
    .use(fileAssets)
+   .use(addStoreToRequestPipline)
+   .use('/api', api)
    .use(respond)

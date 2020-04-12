@@ -37,7 +37,8 @@ const serverConfig = {
    },
    plugins: [
       new webpack.DefinePlugin({
-         DIR_STATIC_FILES: JSON.stringify( path.join(__dirname, '/dist/assets') )
+         DIR_STATIC_FILES: JSON.stringify( path.join(__dirname, '/dist/assets') ),
+         DIR_INITIAL_STATE: JSON.stringify( path.join(__dirname, '/data/initialState.json') )
       }),
       /*
        IgnorePlugin предотвращает генерацию модулей для import или require вызовов (на этапе сборки),
