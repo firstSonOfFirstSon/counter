@@ -18,6 +18,7 @@ serverStore.subscribe( () => {
       (error) => error ? console.log('Error saving state!', error) : null
    )
 });
+const staticCss = fs.readFileSync(DIR_STATIC_FILES + '/bundle.css');
 const fileAssets = express.static( DIR_STATIC_FILES );
 const logger = (req, res, next) => {
    console.log(`${req.method} request for '${req.url}'`);
@@ -41,14 +42,14 @@ const renderComponentToHTML = ({store}) =>
          </Provider>
       )
    });
-const buildHTMLPage = ({html = '', css = '', state}) =>
+const buildHTMLPage = ({html = '', state}) =>
    `
       <!DOCTYPE html>
       <html>
         <head>
             <meta charset="utf-8"/>
             <title>Application counter</title>
-            <link rel="stylesheet" href="./bundle.css">
+            <style>${staticCss}</style>
         </head>
         <body>
             <div id="root">${html}</div>
