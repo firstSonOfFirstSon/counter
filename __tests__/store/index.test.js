@@ -1,5 +1,5 @@
 import storeFactory from '../../src/store/index';
-import {increment, decrement} from '../../src/utils/actionCreators'
+import {update} from '../../src/utils/actionCreators'
 import deepFreeze from 'deep-freeze';
 
 describe('Store tests', () => {
@@ -12,7 +12,7 @@ describe('Store tests', () => {
       };
       beforeAll( () => {
          store = storeFactory(false, initialState);
-         action = increment();
+         action = update(9);
          deepFreeze(action);
          deepFreeze(initialState);
          store.dispatch(action);
@@ -31,7 +31,7 @@ describe('Store tests', () => {
       };
       beforeAll( () => {
          store = storeFactory(false, initialState);
-         action = decrement();
+         action = update(7);
          deepFreeze(action);
          deepFreeze(initialState);
          store.dispatch(action);

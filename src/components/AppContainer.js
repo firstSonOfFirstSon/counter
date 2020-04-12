@@ -1,4 +1,4 @@
-import {update} from '../utils/actions.js';
+import {update} from '../utils/actions';
 import {connect} from 'react-redux';
 import App from './App';
 

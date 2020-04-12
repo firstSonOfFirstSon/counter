@@ -15,4 +15,4 @@ export const update = (value) => (dispatch) => {
       `/api/counter/${value}`,
       'PUT'
    )
-}
+};

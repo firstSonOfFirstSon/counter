@@ -1,7 +1,19 @@
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const fs = require('fs');
+
+let nodeModules = {};
+fs.readdirSync('node_modules')
+   .filter(function(x) {
+      return ['.bin'].indexOf(x) === -1;
+   })
+   .forEach(function(mod) {
+      nodeModules[mod] = 'commonjs ' + mod;
+   });
+
+const NODE_ENV = process.env.NODE_ENV || 'production';//production
+
 const serverConfig = {
    target: 'node',
    mode: NODE_ENV,
@@ -46,7 +58,8 @@ const serverConfig = {
        при запуске серверного bundle, будет ошибка, что модули /\.scss$/ не найдены.
       */
      // new webpack.IgnorePlugin({resourceRegExp: /\.scss$/})
-   ]
+   ],
+   externals: nodeModules
   // externals: /\.scss$/
 };
 const clientConfig = {

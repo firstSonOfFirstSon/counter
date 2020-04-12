@@ -7,7 +7,8 @@ describe('counter reducer', () => {
    it('Increment counter success', () => {
       const state = 8;
       const action = {
-         type: c.INCREMENT
+         type: c.UPDATE,
+         value: 9
       };
 
       deepFreeze(action);
@@ -17,7 +18,8 @@ describe('counter reducer', () => {
    it('Decrement counter success', () => {
       const state = 8;
       const action = {
-         type: c.DECREMENT
+         type: c.UPDATE,
+         value: 7
       };
 
       deepFreeze(action);
